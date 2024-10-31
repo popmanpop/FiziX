@@ -8,38 +8,32 @@ C = int(input("Введите удельную теплоёмкость(Дж\К�
 lamb = int(input("Введите удельную теплоту плавления(Дж\Кг): "))
 mass = int(input("Введите массу(Кг): "))
 
-
 x = []
 y = []
 
-def Qcal(endQ, endT, lamMultMass, x: list , y: list):
-    for q in range(endQ, lamMultMass):
-        if q + 1 == lamMultMass:
-            x.append(q)
-            y.append(endT)
-        if q == endQ:
-            x.append(q)
-            y.append(endT)
+maxT = max([startT, plavT])
+minT = min([startT, plavT])
 
-for temp in range(startT, plavT+1):
 
-    deltaT = temp - startT
-    Q = C * mass * deltaT
-    
-    if temp == startT:
-        x.append(Q)
-        y.append(temp)
-    if temp + 1 == plavT + 1:
-        x.append(Q)
-        y.append(temp)
-    if temp >= plavT:
-        Qcal(Q, temp, mass * lamb, x , y)
-        break
-    
-    
+x.append(0)
+y.append(startT)
+
+Q2 = C * mass * (maxT - minT)
+
+
+x.append(Q2)
+y.append(plavT)
+
+
+limdMultiMass = (lamb * mass) + Q2
+
+
+x.append(limdMultiMass)
+y.append(plavT)
 
 plt.plot(x, y)
 plt.xlabel("Q Кдж")
 plt.ylabel("t°C")
 plt.title("Отношение количества теплоты от температуры")
 plt.show()
+print("\n")
